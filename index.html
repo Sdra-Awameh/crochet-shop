@@ -16,10 +16,10 @@
       --card-dark: #4a3832;
       --text-light: #5d4037;
       --text-dark: #f8f3ef;
-      --accent: #8b6f5c; /* بني من اللوغو */
-      --accent-2: #d4b8a8; /* بيج وردي */
-      --accent-3: #6d5445; /* بني داكن */
-      --gold: #d4af37; /* ذهبي */
+      --accent: #8b6f5c;
+      --accent-2: #d4b8a8;
+      --accent-3: #6d5445;
+      --gold: #d4af37;
     }
 
     body {
@@ -32,7 +32,6 @@
       overflow-x: hidden;
     }
 
-    /* خلفية متحركة بورود وقلوب */
     body::before {
       content: '';
       position: fixed;
@@ -51,7 +50,6 @@
       50% { transform: translateY(-20px) scale(1.05); }
     }
 
-    /* قلوب وورود متطايرة */
     body::after {
       content: '✿ ❀ ✾ ♡ ✿ ❀';
       position: fixed;
@@ -126,7 +124,6 @@
       overflow: hidden;
     }
 
-    /* تأثير بريق ذهبي */
     header::before {
       content: '';
       position: absolute;
@@ -176,7 +173,7 @@
       border-radius: 50px;
       border: 2px solid transparent;
       background: linear-gradient(135deg, #d4b8a8, #8b6f5c);
-      color: #6a4a4a;
+      color: #ffffff;
       cursor: pointer;
       font-size: 0.9rem;
       font-weight: 500;
@@ -212,7 +209,6 @@
       border: 1px solid rgba(139, 111, 92, 0.15);
     }
 
-    /* حدود ذهبية متوهجة عند الهوفر */
     .card::before {
       content: '';
       position: absolute;
@@ -231,7 +227,6 @@
       opacity: 1;
     }
 
-    /* بريق ذهبي */
     .card::after {
       content: '';
       position: absolute;
@@ -294,7 +289,12 @@
       background: rgba(212, 184, 168, 0.9);
       border: 1px solid #8b6f5c;
       font-size: 1rem;
-      padding: 4px 10px;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       border-radius: 50%;
       transition: all 0.3s ease;
@@ -305,7 +305,7 @@
     .product-images button:hover {
       background: #8b6f5c;
       color: white;
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
 
     .product-images .prev {
@@ -317,11 +317,11 @@
     }
 
     .card h3 {
-      font-family: 'Playfair Display', serif;
-      margin: 0 0 10px;
-      font-size: 1.6rem;
-      color: #6a4a4a;
-      font-weight: 600;
+     font-size:2 rem; 
+     letter-spacing:2px;
+      color:var(--accent); 
+      margin-bottom:8px;
+       font-weight:500;
     }
 
     .card p {
@@ -387,7 +387,6 @@
     .star-7 { top: 58%; left: 20%; animation-duration: 17s, 7.5s; }
     .star-8 { top: 38%; right: 22%; animation-duration: 19s, 9s; }
 
-    /* أضواء متلألئة */
     @keyframes sparkle {
       0%, 100% { opacity: 0; transform: scale(0); }
       50% { opacity: 1; transform: scale(1); }
@@ -403,7 +402,6 @@
       pointer-events: none;
     }
 
-    /* Instagram Button Hover */
     a[href*="instagram"]:hover {
       transform: translateY(-3px);
       box-shadow: 0 12px 35px rgba(139, 111, 92, 0.4);
@@ -413,14 +411,13 @@
       background: linear-gradient(135deg, #8b6f5c, #6d5445);
     }
 
-    /* Theme Toggle Styles */
     .theme-switch {
-      --toggle-size: 16px;
-      --container-width: 5.625em;
-      --container-height: 2.5em;
+      --toggle-size: 12px;
+      --container-width: 4em;
+      --container-height: 1.8em;
       --container-radius: 6.25em;
-      --circle-container-diameter: 3.375em;
-      --sun-moon-diameter: 2.125em;
+      --circle-container-diameter: 2.4em;
+      --sun-moon-diameter: 1.5em;
       --sun-bg: radial-gradient(circle, #ffd900 0%, #ffa500 100%);
       --moon-bg: radial-gradient(circle, #d9fbff 0%, #c0c0c0 100%);
       --spot-color: #959db1;
@@ -542,7 +539,6 @@
       transition: var(--transition);
     }
 
-    /* Checked */
     .theme-switch__checkbox:checked + .theme-switch__container {
       background-color: var(--container-night-bg);
     }
@@ -576,7 +572,6 @@
 <body>
 
 <header style="position: relative;">
-  <!-- Dark / Light Toggle -->
   <label class="theme-switch" style="position:absolute; top:20px; right:20px; z-index:999;">
     <input type="checkbox" class="theme-switch__checkbox" id="themeToggle">
     <div class="theme-switch__container">
@@ -598,7 +593,6 @@
     </div>
   </label>
 
-  <!-- النجوم والورود -->
   <div class="crochet-star star-1">✿</div>
   <div class="crochet-star star-2">♡</div>
   <div class="crochet-star star-3">❀</div>
@@ -608,17 +602,15 @@
   <div class="crochet-star star-7">❀</div>
   <div class="crochet-star star-8">✾</div>
   
-  <!-- نقاط ذهبية متلألئة -->
   <div class="sparkle" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
   <div class="sparkle" style="top: 40%; right: 20%; animation-delay: 0.5s;"></div>
   <div class="sparkle" style="top: 60%; left: 25%; animation-delay: 1s;"></div>
   <div class="sparkle" style="top: 80%; right: 30%; animation-delay: 1.5s;"></div>
   
-  <span style="font-family:'Poppins',sans-serif; letter-spacing:3px; font-size:0.75rem; text-transform:uppercase; opacity:0.7; color:#6d5445; position:relative; z-index:2; margin-bottom: 5px; display:block;">✿ Handmade • Cozy • Timeless ✿</span>
+  <span style="font-family:'Poppins',sans-serif; letter-spacing:3px; font-size:0.75rem; text-transform:uppercase; opacity:0.7; color:#6d5445; position:relative; z-index:2; margin-bottom: 5px; display:block;">✿ Handmade • Cozy • pure LOVE ✿</span>
   <img src="assets/logo2.png" alt="logo" class="logo">
   <p style="max-width:560px; margin:5px auto 0; font-size:1rem; position:relative; z-index:2; font-weight:300; color:#6d5445;">
-    Elegant handmade crochet pieces inspired by calm moments, soft textures, and warm neutral tones.
-  </p>
+    Beautiful handmade crochet made for cozy moments and everyday style.</p>
 </header>
 
   <div class="controls">
@@ -631,218 +623,213 @@
   </div>
 
   <section class="products" id="products">
-
-    <!-- Product Card -->
-  <div class="card" data-category="keychain" data-color="beige">
+  <div class="card" data-category="keychain">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/cherry2.jpeg" alt="SID Keychain - Image 1" class="active">
-        <img src="assets/cherry.jpeg" alt="SID Keychain - Image 2">
-        <img src="assets/cherry3.jpeg" alt="SID Keychain - Image 3">
+        <img src="assets/cherry2.jpeg" alt="Cherry Keychain" class="active">
+        <img src="assets/cherry.jpeg" alt="Cherry Keychain">
+        <img src="assets/cherry3.jpeg" alt="Cherry Keychain">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Cherry Keychain</h3>
-      <p>Delicate handmade crochet keychain with soft texture and adorable cherry design.</p>
-      <div class="price">1.50 JOD</div>
+      <p>Delicate handmade crochet keychain with adorable cherry design.</p>
+      <div class="price">1.50 JD</div>
     </div>
 
-  <div class="card" data-category="keychain" data-color="beige">
-  <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+  <div class="card" data-category="keychain">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.26 PM.jpeg" alt="SID Keychain - Image 1" class="active">
-        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.27 PM.jpeg" alt="SID Keychain - Image 2">
-        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.27 PM222222222.jpeg" alt="SID Keychain - Image 3">
+        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.26 PM.jpeg" alt="Teddy Keychain" class="active">
+        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.27 PM.jpeg" alt="Teddy Keychain">
+        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.27 PM222222222.jpeg" alt="Teddy Keychain">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Teddy Keychain</h3>
-      <p>Delicate handmade crochet keychain with soft texture and adorable cherry design.</p>
-      <div class="price">4 JOD</div>
+      <p>Adorable teddy keychain with soft texture.</p>
+      <div class="price">4 JD</div>
     </div>
 
-      <div class="card" data-category="keychain" data-color="beige">
+      <div class="card" data-category="keychain">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/duck.jpeg" alt="Duck Keychain - Image 1" class="active">
-        <img src="assets/duck2.jpeg" alt="Duck Keychain - Image 2">
-        <img src="assets/duck3.jpeg" alt="Duck Keychain - Image 3">
-        <img src="assets/duck4.jpeg" alt="Duck Keychain - Image 4">
-        <img src="assets/duck5.jpeg" alt="Duck Keychain - Image 5">
+        <img src="assets/duck.jpeg" alt="Duck Keychain" class="active">
+        <img src="assets/duck2.jpeg" alt="Duck Keychain">
+        <img src="assets/duck3.jpeg" alt="Duck Keychain">
+        <img src="assets/duck4.jpeg" alt="Duck Keychain">
+        <img src="assets/duck5.jpeg" alt="Duck Keychain">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Duck Keychain</h3>
       <p>Adorable duck keychain perfect for your bag or keys.</p>
-      <div class="price">2.50 JOD</div>
+      <div class="price">2.50 JD</div>
     </div>
 
-    <div class="card" data-category="keychain" data-color="beige">
+    <div class="card" data-category="keychain">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/sid.jpeg" alt="SID Keychain - Image 1" class="active">
-        <img src="assets/sid2.jpeg" alt="SID Keychain - Image 2">
-        <img src="assets/sid3.jpeg" alt="SID Keychain - Image 3">
+        <img src="assets/sid.jpeg" alt="SID Keychain" class="active">
+        <img src="assets/sid2.jpeg" alt="SID Keychain">
+        <img src="assets/sid3.jpeg" alt="SID Keychain">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>SID Keychain</h3>
       <p>Delicate handmade crochet keychain with soft texture.</p>
-      <div class="price">4 JOD</div>
+      <div class="price">4 JD</div>
     </div>
 
-     <div class="card" data-category="keychain" data-color="beige">
+     <div class="card" data-category="keychain">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/apple.jpeg" alt="Apple Keychain - Image 1" class="active">
-        <img src="assets/apple2.jpeg" alt="Apple Keychain - Image 2">
-        <img src="assets/apple3.jpeg" alt="Apple Keychain - Image 3">
+        <img src="assets/apple.jpeg" alt="Apple Keychain" class="active">
+        <img src="assets/apple2.jpeg" alt="Apple Keychain">
+        <img src="assets/apple3.jpeg" alt="Apple Keychain">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Apple Keychain</h3>
       <p>Sweet apple-shaped keychain for everyday charm.</p>
-      <div class="price">2.50 JOD</div>
+      <div class="price">2.50 JD</div>
     </div>
 
-     <div class="card" data-category="keychain" data-color="beige">
+     <div class="card" data-category="keychain">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/sunflower.jpeg" alt="Sunflower Keychain - Image 1" class="active">
-        <img src="assets/sunflower2.jpeg" alt="Sunflower Keychain - Image 2">
-        <img src="assets/sunflower3.jpeg" alt="Sunflower Keychain - Image 3">
+        <img src="assets/sunflower.jpeg" alt="Sunflower Keychain" class="active">
+        <img src="assets/sunflower2.jpeg" alt="Sunflower Keychain">
+        <img src="assets/sunflower3.jpeg" alt="Sunflower Keychain">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Sunflower Keychain</h3>
       <p>Bright and cheerful sunflower to brighten your day.</p>
-      <div class="price">1 JOD</div>
+      <div class="price">1 JD</div>
     </div>
 
-    <div class="card" data-category="bookmark" data-color="white">
+    <div class="card" data-category="bookmark">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/bow.png" alt="Bow Bookmark - Image 1" class="active">
-        <img src="assets/bow2.png" alt="Bow Bookmark - Image 2">
-        <img src="assets/bow3.png" alt="Bow Bookmark - Image 3">
+        <img src="assets/bow.png" alt="Bow Bookmark" class="active">
+        <img src="assets/bow2.png" alt="Bow Bookmark">
+        <img src="assets/bow3.png" alt="Bow Bookmark">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Bow Bookmark</h3>
       <p>Elegant bow bookmark for book lovers.</p>
-      <div class="price">3 JOD</div>
+      <div class="price">3 JD</div>
     </div>
 
- <div class="card" data-category="bookmark" data-color="white">
+ <div class="card" data-category="bookmark">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/flower.png" alt="Flower Bookmark - Image 1" class="active">
-        <img src="assets/flower2.png" alt="Flower Bookmark - Image 2">
-        <img src="assets/flower3.png" alt="Flower Bookmark - Image 3">
+        <img src="assets/flower.png" alt="Flower Bookmark" class="active">
+        <img src="assets/flower2.png" alt="Flower Bookmark">
+        <img src="assets/flower3.png" alt="Flower Bookmark">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Flower Bookmark</h3>
       <p>Beautiful floral bookmark for your reading moments.</p>
-      <div class="price">2.50 JOD</div>
+      <div class="price">2.50 JD</div>
     </div>
 
-    <div class="card" data-category="bookmark" data-color="white">
+    <div class="card" data-category="bookmark">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/cat.png" alt="Cat Bookmark - Image 1" class="active">
-        <img src="assets/cat2.png" alt="Cat Bookmark - Image 2">
-        <img src="assets/cat3.png" alt="Cat Bookmark - Image 3">
+        <img src="assets/cat.png" alt="Cat Bookmark" class="active">
+        <img src="assets/cat2.png" alt="Cat Bookmark">
+        <img src="assets/cat3.png" alt="Cat Bookmark">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Cat Bookmark</h3>
       <p>Cute cat bookmark for feline enthusiasts.</p>
-      <div class="price">2.50 JOD</div>
+      <div class="price">2.50 JD</div>
     </div>
 
-    <div class="card" data-category="bookmark" data-color="white">
+    <div class="card" data-category="bookmark">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/gray.png" alt="Gray Bookmark - Image 1" class="active">
-        <img src="assets/gray2.png" alt="Gray Bookmark - Image 2">
-        <img src="assets/gray3.png" alt="Gray Bookmark - Image 3">
+        <img src="assets/gray.png" alt="Gray Bookmark" class="active">
+        <img src="assets/gray2.png" alt="Gray Bookmark">
+        <img src="assets/gray3.png" alt="Gray Bookmark">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Gray Bookmark</h3>
       <p>Minimalist gray bookmark with elegant design.</p>
-      <div class="price">3 JOD</div>
+      <div class="price">3 JD</div>
     </div>
  
-      <div class="card" data-category="bookmark" data-color="white">
+      <div class="card" data-category="bookmark">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/heart.png" alt="Heart Bookmark - Image 1" class="active">
-        <img src="assets/heart2.png" alt="Heart Bookmark - Image 2">
-        <img src="assets/heart3.png" alt="Heart Bookmark - Image 3">
+        <img src="assets/heart.png" alt="Heart Bookmark" class="active">
+        <img src="assets/heart2.png" alt="Heart Bookmark">
+        <img src="assets/heart3.png" alt="Heart Bookmark">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Heart Bookmark</h3>
       <p>Lovely heart-shaped bookmark made with care.</p>
-      <div class="price">1.50 JOD</div>
+      <div class="price">1.50 JD</div>
     </div>
 
-        <div class="card" data-category="bookmark" data-color="white">
+        <div class="card" data-category="bookmark">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/fish.jpeg" alt="Fish Bookmark - Image 1" class="active">
+        <img src="assets/fish.jpeg" alt="Fish Bookmark" class="active">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Fish Bookmark</h3>
       <p>Adorable fish bookmark for ocean lovers.</p>
-      <div class="price">3 JOD</div>
+      <div class="price">3 JD</div>
     </div>
 
-      <div class="card" data-category="bookmark" data-color="white">
+      <div class="card" data-category="bookmark">
       <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/mouse.jpeg" alt="Mouse Bookmark - Image 1" class="active">
-        <img src="assets/5.jpeg" alt="Mouse Bookmark - Image 2">
+        <img src="assets/mouse.jpeg" alt="Mouse Bookmark" class="active">
+        <img src="assets/5.jpeg" alt="Mouse Bookmark">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Mouse Bookmark</h3>
       <p>Sweet little mouse bookmark for your books.</p>
-      <div class="price">4 JOD</div>
+      <div class="price">4 JD</div>
     </div>
 
-    <div class="card" data-category="accessory" data-color="brown">
+    <div class="card" data-category="accessory">
      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
       <div class="product-images">
-        <img src="assets/phone.png" alt="Phone Pouch - Image 1" class="active">
-        <img src="assets/phone2.png" alt="Phone Pouch - Image 2">
+        <img src="assets/phone.png" alt="Phone Pouch" class="active">
+        <img src="assets/phone2.png" alt="Phone Pouch">
         <button class="prev">‹</button>
         <button class="next">›</button>
       </div>
       <h3>Mini Crochet Pouch</h3>
       <p>Perfect small accessory, fully handmade with love.</p>
-      <div class="price">5 JOD</div>
+      <div class="price">5 JD</div>
     </div>
-
   </section>
 
   <section style="max-width:900px; margin:100px auto 60px; padding:0 20px; text-align:center;">
     <h2 style="font-family:'Playfair Display', serif; font-size:2.6rem; margin-bottom:25px; background: linear-gradient(135deg, #8b6f5c, #6d5445); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">About the Brand ✿</h2>
     <p style="max-width:700px; margin:auto; line-height:1.9; opacity:0.85; font-size:1.05rem; color:#6a5a5a;">
-      Every piece is carefully handmade with love and attention to detail. This crochet studio is about slow creation,
-      soft colors, and timeless designs made to bring warmth into everyday life.
+      A crochet brand where handmade artistry meets modern trends, creating unique, stylish pieces crafted with care.
     </p>
   </section>
 
-  <!-- Contact Section -->
   <section style="max-width:600px; margin:60px auto 80px; padding:40px 20px; text-align:center; background: linear-gradient(135deg, #fef9f6 0%, #f9ede6 100%); border-radius:40px; box-shadow: 0 10px 40px rgba(139, 111, 92, 0.15);">
-    <h2 style="font-family:'Playfair Display', serif; font-size:2.2rem; margin-bottom:15px; background: linear-gradient(135deg, #8b6f5c, #6d5445); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Get in Touch ♡</h2>
+    <h2 style="font-family:'Playfair Display', serif; font-size:2.2rem; margin-bottom:15px; background: linear-gradient(135deg, #8b6f5c, #6d5445); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Order now ♡</h2>
     <p style="margin-bottom:25px; color:#6d5445; font-size:1.05rem; line-height:1.7;">
-      Have questions or want to place a custom order?<br>
-      Feel free to reach out on Instagram!
+     Ready to order or request a custom piece?<br>
+         We'd love to hear from you on Instagram!
     </p>
     <a href="https://www.instagram.com/suff.j0/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:12px; padding:14px 32px; background: linear-gradient(135deg, #d4b8a8, #8b6f5c); color:white; text-decoration:none; border-radius:50px; font-weight:500; font-size:1.05rem; box-shadow: 0 8px 25px rgba(139, 111, 92, 0.3); transition: all 0.3s ease; font-family: 'Poppins', sans-serif;">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -853,7 +840,7 @@
   </section>
 
   <footer>
-    © 2026 Crochet Studio · Handmade with love ♡✿
+    © 2026 Suff j♡ · Handmade with love ♡✿
   </footer>
 
   <script>
@@ -864,14 +851,12 @@
 
     function filterProducts() {
       const category = categoryFilter.value;
-
       cards.forEach(card => {
         const matchCategory = category === 'all' || card.dataset.category === category;
         card.style.display = matchCategory ? 'block' : 'none';
       });
     }
 
-    // Product Image Carousel
     document.querySelectorAll('.card').forEach(card => {
       const imgs = card.querySelectorAll('.product-images img');
       const prevBtn = card.querySelector('.product-images .prev');
@@ -902,7 +887,6 @@
     });
 
     const themeToggle = document.getElementById('themeToggle');
-
     themeToggle.addEventListener('change', () => {
       document.body.classList.toggle('dark', themeToggle.checked);
     });
