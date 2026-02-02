@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crochet Studio</title>
+
+  <!-- Google Fonts (أنثوية وناعمة) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-light: #fdf8f5;
+      --bg-dark: #2a1f1c;
+      --card-light: #ffffff;
+      --card-dark: #4a3832;
+      --text-light: #5d4037;
+      --text-dark: #f8f3ef;
+      --accent: #8b6f5c; /* بني من اللوغو */
+      --accent-2: #d4b8a8; /* بيج وردي */
+      --accent-3: #6d5445; /* بني داكن */
+      --gold: #d4af37; /* ذهبي */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fdf8f5 0%, #f9ede6 50%, #f5e3d8 100%);
+      color: var(--text-light);
+      transition: background 0.4s ease, color 0.3s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* خلفية متحركة بورود وقلوب */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(139, 111, 92, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(184, 155, 136, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 70%, rgba(109, 84, 69, 0.12) 0%, transparent 50%);
+      animation: floatBg 25s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes floatBg {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+
+    /* قلوب وورود متطايرة */
+    body::after {
+      content: '✿ ❀ ✾ ♡ ✿ ❀';
+      position: fixed;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      font-size: 2rem;
+      color: rgba(139, 111, 92, 0.25);
+      letter-spacing: 80px;
+      animation: fall 20s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px); }
+      100% { transform: translateY(100vh); }
+    }
+
+    body.dark {
+      background: linear-gradient(180deg, #2b2420, #1f1a17);
+      color: var(--text-dark);
+    }
+
+    body.dark header {
+      background: linear-gradient(135deg, #3d2f2a 0%, #332620 50%, #2a1f1c 100%);
+    }
+
+    body.dark footer {
+      background: linear-gradient(135deg, #3d2f2a, #332620);
+    }
+
+    body.dark .logo {
+      filter: drop-shadow(0 0 20px rgba(255, 226, 173, 0.884)) 
+              drop-shadow(0 0 40px rgb(248, 233, 148))
+              brightness(1.2);
+    }
+
+    body.dark h3,
+    body.dark p,
+    body.dark .card p {
+      color: #e8ddd3;
+    }
+
+    body.dark .price {
+      -webkit-text-fill-color: #d4b8a8;
+    }
+
+    body.dark header span,
+    body.dark header p {
+      color: #f5e3d8 !important;
+      opacity: 0.9 !important;
+    }
+
+    body.dark section {
+      background: linear-gradient(135deg, #4a3832 0%, #3d2f2a 100%) !important;
+    }
+
+    body.dark section h2,
+    body.dark section p {
+      color: #f5e3d8 !important;
+    }
+
+    header {
+      padding: 50px 20px 50px;
+      text-align: center;
+      background: linear-gradient(135deg, #f9ede6 0%, #f5e3d8 50%, #f0d9cc 100%);
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      box-shadow: 0 10px 40px rgba(139, 111, 92, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* تأثير بريق ذهبي */
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      animation: shimmer 8s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(180deg); }
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #8b6f5c, #6d5445, #8b6f5c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      z-index: 2;
+    }
+
+    header p {
+      opacity: 0.85;
+      position: relative;
+      z-index: 2;
+      font-weight: 300;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 50px 0 70px;
+    }
+
+    select, button {
+      padding: 12px 28px;
+      border-radius: 50px;
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, #d4b8a8, #8b6f5c);
+      color: #6a4a4a;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 20px rgba(139, 111, 92, 0.35);
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    select:hover, button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(139, 111, 92, 0.45);
+      border-color: var(--gold);
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 0 20px 80px;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #ffffff 0%, #fef9f6 100%);
+      border-radius: 35px;
+      padding: 30px;
+      box-shadow: 0 15px 50px rgba(139, 111, 92, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(139, 111, 92, 0.15);
+    }
+
+    /* حدود ذهبية متوهجة عند الهوفر */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 35px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--gold), var(--accent), var(--accent-2));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    /* بريق ذهبي */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+    }
+
+    .card:hover::after {
+      animation: shine 1.5s ease-in-out;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+
+    body.dark .card {
+      background: linear-gradient(135deg, #4a3832 0%, #3d2f2a 100%);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 70px rgba(139, 111, 92, 0.35);
+    }
+
+    .product-images {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      aspect-ratio: 1;
+      border: 3px solid rgba(139, 111, 92, 0.2);
+    }
+
+    .product-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      transition: transform 0.4s ease;
+    }
+
+    .product-images img.active {
+      display: block;
+    }
+
+    .card:hover .product-images img {
+      transform: scale(1.05);
+    }
+
+    .product-images button {
+      position: absolute;
+      bottom: 8px;
+      background: rgba(212, 184, 168, 0.9);
+      border: 1px solid #8b6f5c;
+      font-size: 1rem;
+      padding: 4px 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      z-index: 10;
+      color: #ffffff;
+    }
+
+    .product-images button:hover {
+      background: #8b6f5c;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .product-images .prev {
+      left: 10px;
+    }
+
+    .product-images .next {
+      right: 10px;
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      margin: 0 0 10px;
+      font-size: 1.6rem;
+      color: #6a4a4a;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #8a7a7a;
+    }
+
+    .price {
+      margin-top: 15px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8b6f5c, #6d5445);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, #f9ede6, #f5e3d8);
+      border-top-left-radius: 80px;
+      border-top-right-radius: 80px;
+      color: #6a4a3c;
+      box-shadow: 0 -10px 40px rgba(139, 111, 92, 0.2);
+    }
+
+    .logo {
+      display: block;
+      margin: 5px auto 5px;
+      max-width: 250px;
+      filter: drop-shadow(0 5px 15px rgba(139, 111, 92, 0.3));
+      position: relative;
+      z-index: 2;
+    }
+
+    .crochet-star {
+      position: absolute;
+      font-size: 2.2rem;
+      opacity: 0.15;
+      animation: spin 15s linear infinite, float 8s ease-in-out infinite;
+      color: var(--accent);
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(180deg); }
+    }
+
+    .star-1 { top: 12%; left: 6%; animation-duration: 20s, 8s; }
+    .star-2 { top: 45%; right: 8%; animation-duration: 18s, 9s; }
+    .star-3 { top: 68%; left: 10%; animation-duration: 22s, 7s; }
+    .star-4 { top: 28%; right: 12%; animation-duration: 25s, 8.5s; }
+    .star-5 { top: 78%; right: 15%; animation-duration: 16s, 9.5s; }
+    .star-6 { top: 18%; right: 18%; animation-duration: 14s, 8s; }
+    .star-7 { top: 58%; left: 20%; animation-duration: 17s, 7.5s; }
+    .star-8 { top: 38%; right: 22%; animation-duration: 19s, 9s; }
+
+    /* أضواء متلألئة */
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: sparkle 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Instagram Button Hover */
+    a[href*="instagram"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(139, 111, 92, 0.4);
+    }
+
+    body.dark a[href*="instagram"] {
+      background: linear-gradient(135deg, #8b6f5c, #6d5445);
+    }
+
+    /* Theme Toggle Styles */
+    .theme-switch {
+      --toggle-size: 16px;
+      --container-width: 5.625em;
+      --container-height: 2.5em;
+      --container-radius: 6.25em;
+      --circle-container-diameter: 3.375em;
+      --sun-moon-diameter: 2.125em;
+      --sun-bg: radial-gradient(circle, #ffd900 0%, #ffa500 100%);
+      --moon-bg: radial-gradient(circle, #d9fbff 0%, #c0c0c0 100%);
+      --spot-color: #959db1;
+      --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+      --stars-color: #fff;
+      --clouds-color: #f3fdff;
+      --back-clouds-color: #aacadf;
+      --transition: 0.3s cubic-bezier(0, -0.02, 0.4, 1.25);
+      --circle-transition: 0.3s cubic-bezier(0, -0.02, 0.35, 1.17);
+    }
+
+    .theme-switch, .theme-switch *, .theme-switch *::before, .theme-switch *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-size: var(--toggle-size);
+    }
+
+    .theme-switch__container {
+      width: var(--container-width);
+      height: var(--container-height);
+      background-color: var(--container-light-bg);
+      border-radius: var(--container-radius);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .theme-switch__checkbox {
+      display: none;
+    }
+
+    .theme-switch__circle-container {
+      width: var(--circle-container-diameter);
+      height: var(--circle-container-diameter);
+      background-color: rgba(255, 255, 255, 0.1);
+      position: absolute;
+      left: var(--circle-container-offset);
+      top: var(--circle-container-offset);
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), inset 0 0 0 3.375em rgba(255, 255, 255, 0.1), 0 0 0 0.625em rgba(255, 255, 255, 0.1), 0 0 0 1.25em rgba(255, 255, 255, 0.1);
+      display: flex;
+      transition: var(--circle-transition);
+      pointer-events: none;
+    }
+
+    .theme-switch__sun-moon-container {
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
+      width: var(--sun-moon-diameter);
+      height: var(--sun-moon-diameter);
+      margin: auto;
+      border-radius: 50%;
+      background: var(--sun-bg);
+      box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #a1872a inset;
+      filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .theme-switch__moon {
+      transform: translateX(100%);
+      width: 100%;
+      height: 100%;
+      background: var(--moon-bg);
+      border-radius: 50%;
+      box-shadow: 0.062em 0.062em 0.062em 0em rgba(254, 255, 239, 0.61) inset, 0em -0.062em 0.062em 0em #969696 inset;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .theme-switch__spot {
+      position: absolute;
+      top: 0.75em;
+      left: 0.312em;
+      width: 0.75em;
+      height: 0.75em;
+      border-radius: 50%;
+      background: var(--spot-color);
+      box-shadow: 0em 0.0312em 0.062em rgba(0, 0, 0, 0.25) inset;
+    }
+
+    .theme-switch__spot:nth-of-type(2) {
+      width: 0.375em;
+      height: 0.375em;
+      top: 0.937em;
+      left: 1.375em;
+    }
+
+    .theme-switch__spot:nth-last-of-type(3) {
+      width: 0.25em;
+      height: 0.25em;
+      top: 0.312em;
+      left: 0.812em;
+    }
+
+    .theme-switch__clouds {
+      width: 1.25em;
+      height: 1.25em;
+      background: var(--clouds-color);
+      border-radius: 50%;
+      position: absolute;
+      bottom: -0.625em;
+      left: 0.312em;
+      box-shadow: 0.937em 0.312em var(--clouds-color), -0.312em -0.312em var(--back-clouds-color), 1.437em 0.375em var(--clouds-color), 0.5em -0.125em var(--back-clouds-color), 2.187em 0 var(--clouds-color), 1.25em -0.062em var(--back-clouds-color), 2.937em 0.312em var(--clouds-color), 2em -0.312em var(--back-clouds-color), 3.625em -0.062em var(--clouds-color), 2.625em 0em var(--back-clouds-color), 4.5em -0.312em var(--clouds-color), 3.375em -0.437em var(--back-clouds-color), 4.625em -1.75em 0 0.437em var(--clouds-color), 4em -0.625em var(--back-clouds-color), 4.125em -2.125em 0 0.437em var(--back-clouds-color);
+      transition: 0.5s cubic-bezier(0, -0.02, 0.4, 1.25);
+    }
+
+    .theme-switch__stars-container {
+      position: absolute;
+      color: var(--stars-color);
+      top: -100%;
+      left: 0.312em;
+      width: 2.75em;
+      height: auto;
+      transition: var(--transition);
+    }
+
+    /* Checked */
+    .theme-switch__checkbox:checked + .theme-switch__container {
+      background-color: var(--container-night-bg);
+    }
+
+    .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+      transform: translateX(calc(var(--container-width) - var(--circle-container-diameter) - var(--circle-container-offset) * 2));
+    }
+
+    .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container:hover {
+      transform: translateX(calc(var(--container-width) - var(--circle-container-diameter) - var(--circle-container-offset) * 2)) translateY(-0.062em);
+    }
+
+    .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
+      transform: translateX(0);
+    }
+
+    .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__clouds {
+      bottom: -4.062em;
+    }
+
+    .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__stars-container {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .theme-switch__circle-container:hover {
+      transform: translateY(-0.062em);
+    }
+  </style>
+</head>
+<body>
+
+<header style="position: relative;">
+  <!-- Dark / Light Toggle -->
+  <label class="theme-switch" style="position:absolute; top:20px; right:20px; z-index:999;">
+    <input type="checkbox" class="theme-switch__checkbox" id="themeToggle">
+    <div class="theme-switch__container">
+      <div class="theme-switch__clouds"></div>
+      <div class="theme-switch__stars-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M135.831 3.00688C135.055 3.85027 134.111 4.29946 133 4.35447C134.111 4.40947 135.055 4.85867 135.831 5.71123C136.607 6.55462 136.996 7.56303 136.996 8.72727C136.996 7.95722 137.172 7.25134 137.525 6.59129C137.886 5.93124 138.372 5.39954 138.98 5.00535C139.598 4.60199 140.268 4.39114 141 4.35447C139.88 4.2903 138.936 3.85027 138.16 3.00688C137.384 2.16348 136.996 1.16425 136.996 0C136.996 1.16425 136.607 2.16348 135.831 3.00688Z" fill="currentColor"></path>
+        </svg>
+      </div>
+      <div class="theme-switch__circle-container">
+        <div class="theme-switch__sun-moon-container">
+          <div class="theme-switch__moon">
+            <div class="theme-switch__spot"></div>
+            <div class="theme-switch__spot"></div>
+            <div class="theme-switch__spot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </label>
+
+  <!-- النجوم والورود -->
+  <div class="crochet-star star-1">✿</div>
+  <div class="crochet-star star-2">♡</div>
+  <div class="crochet-star star-3">❀</div>
+  <div class="crochet-star star-4">✾</div>
+  <div class="crochet-star star-5">♡</div>
+  <div class="crochet-star star-6">✿</div>
+  <div class="crochet-star star-7">❀</div>
+  <div class="crochet-star star-8">✾</div>
+  
+  <!-- نقاط ذهبية متلألئة -->
+  <div class="sparkle" style="top: 20%; left: 15%; animation-delay: 0s;"></div>
+  <div class="sparkle" style="top: 40%; right: 20%; animation-delay: 0.5s;"></div>
+  <div class="sparkle" style="top: 60%; left: 25%; animation-delay: 1s;"></div>
+  <div class="sparkle" style="top: 80%; right: 30%; animation-delay: 1.5s;"></div>
+  
+  <span style="font-family:'Poppins',sans-serif; letter-spacing:3px; font-size:0.75rem; text-transform:uppercase; opacity:0.7; color:#6d5445; position:relative; z-index:2; margin-bottom: 5px; display:block;">✿ Handmade • Cozy • Timeless ✿</span>
+  <img src="assets/logo2.png" alt="logo" class="logo">
+  <p style="max-width:560px; margin:5px auto 0; font-size:1rem; position:relative; z-index:2; font-weight:300; color:#6d5445;">
+    Elegant handmade crochet pieces inspired by calm moments, soft textures, and warm neutral tones.
+  </p>
+</header>
+
+  <div class="controls">
+    <select id="categoryFilter">
+      <option value="all">✿ All Categories</option>
+      <option value="keychain">Keychains</option>
+      <option value="bookmark">Bookmarks</option>
+      <option value="accessory">Accessories</option>
+    </select>
+  </div>
+
+  <section class="products" id="products">
+
+    <!-- Product Card -->
+  <div class="card" data-category="keychain" data-color="beige">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/cherry2.jpeg" alt="SID Keychain - Image 1" class="active">
+        <img src="assets/cherry.jpeg" alt="SID Keychain - Image 2">
+        <img src="assets/cherry3.jpeg" alt="SID Keychain - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Cherry Keychain</h3>
+      <p>Delicate handmade crochet keychain with soft texture and adorable cherry design.</p>
+      <div class="price">1.50 JOD</div>
+    </div>
+
+  <div class="card" data-category="keychain" data-color="beige">
+  <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.26 PM.jpeg" alt="SID Keychain - Image 1" class="active">
+        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.27 PM.jpeg" alt="SID Keychain - Image 2">
+        <img src="assets/WhatsApp Image 2026-02-02 at 5.43.27 PM222222222.jpeg" alt="SID Keychain - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Teddy Keychain</h3>
+      <p>Delicate handmade crochet keychain with soft texture and adorable cherry design.</p>
+      <div class="price">4 JOD</div>
+    </div>
+
+      <div class="card" data-category="keychain" data-color="beige">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/duck.jpeg" alt="Duck Keychain - Image 1" class="active">
+        <img src="assets/duck2.jpeg" alt="Duck Keychain - Image 2">
+        <img src="assets/duck3.jpeg" alt="Duck Keychain - Image 3">
+        <img src="assets/duck4.jpeg" alt="Duck Keychain - Image 4">
+        <img src="assets/duck5.jpeg" alt="Duck Keychain - Image 5">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Duck Keychain</h3>
+      <p>Adorable duck keychain perfect for your bag or keys.</p>
+      <div class="price">2.50 JOD</div>
+    </div>
+
+    <div class="card" data-category="keychain" data-color="beige">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/sid.jpeg" alt="SID Keychain - Image 1" class="active">
+        <img src="assets/sid2.jpeg" alt="SID Keychain - Image 2">
+        <img src="assets/sid3.jpeg" alt="SID Keychain - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>SID Keychain</h3>
+      <p>Delicate handmade crochet keychain with soft texture.</p>
+      <div class="price">4 JOD</div>
+    </div>
+
+     <div class="card" data-category="keychain" data-color="beige">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/apple.jpeg" alt="Apple Keychain - Image 1" class="active">
+        <img src="assets/apple2.jpeg" alt="Apple Keychain - Image 2">
+        <img src="assets/apple3.jpeg" alt="Apple Keychain - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Apple Keychain</h3>
+      <p>Sweet apple-shaped keychain for everyday charm.</p>
+      <div class="price">2.50 JOD</div>
+    </div>
+
+     <div class="card" data-category="keychain" data-color="beige">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/sunflower.jpeg" alt="Sunflower Keychain - Image 1" class="active">
+        <img src="assets/sunflower2.jpeg" alt="Sunflower Keychain - Image 2">
+        <img src="assets/sunflower3.jpeg" alt="Sunflower Keychain - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Sunflower Keychain</h3>
+      <p>Bright and cheerful sunflower to brighten your day.</p>
+      <div class="price">1 JOD</div>
+    </div>
+
+    <div class="card" data-category="bookmark" data-color="white">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/bow.png" alt="Bow Bookmark - Image 1" class="active">
+        <img src="assets/bow2.png" alt="Bow Bookmark - Image 2">
+        <img src="assets/bow3.png" alt="Bow Bookmark - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Bow Bookmark</h3>
+      <p>Elegant bow bookmark for book lovers.</p>
+      <div class="price">3 JOD</div>
+    </div>
+
+ <div class="card" data-category="bookmark" data-color="white">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/flower.png" alt="Flower Bookmark - Image 1" class="active">
+        <img src="assets/flower2.png" alt="Flower Bookmark - Image 2">
+        <img src="assets/flower3.png" alt="Flower Bookmark - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Flower Bookmark</h3>
+      <p>Beautiful floral bookmark for your reading moments.</p>
+      <div class="price">2.50 JOD</div>
+    </div>
+
+    <div class="card" data-category="bookmark" data-color="white">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/cat.png" alt="Cat Bookmark - Image 1" class="active">
+        <img src="assets/cat2.png" alt="Cat Bookmark - Image 2">
+        <img src="assets/cat3.png" alt="Cat Bookmark - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Cat Bookmark</h3>
+      <p>Cute cat bookmark for feline enthusiasts.</p>
+      <div class="price">2.50 JOD</div>
+    </div>
+
+    <div class="card" data-category="bookmark" data-color="white">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/gray.png" alt="Gray Bookmark - Image 1" class="active">
+        <img src="assets/gray2.png" alt="Gray Bookmark - Image 2">
+        <img src="assets/gray3.png" alt="Gray Bookmark - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Gray Bookmark</h3>
+      <p>Minimalist gray bookmark with elegant design.</p>
+      <div class="price">3 JOD</div>
+    </div>
+ 
+      <div class="card" data-category="bookmark" data-color="white">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/heart.png" alt="Heart Bookmark - Image 1" class="active">
+        <img src="assets/heart2.png" alt="Heart Bookmark - Image 2">
+        <img src="assets/heart3.png" alt="Heart Bookmark - Image 3">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Heart Bookmark</h3>
+      <p>Lovely heart-shaped bookmark made with care.</p>
+      <div class="price">1.50 JOD</div>
+    </div>
+
+        <div class="card" data-category="bookmark" data-color="white">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/fish.jpeg" alt="Fish Bookmark - Image 1" class="active">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Fish Bookmark</h3>
+      <p>Adorable fish bookmark for ocean lovers.</p>
+      <div class="price">3 JOD</div>
+    </div>
+
+      <div class="card" data-category="bookmark" data-color="white">
+      <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/mouse.jpeg" alt="Mouse Bookmark - Image 1" class="active">
+        <img src="assets/5.jpeg" alt="Mouse Bookmark - Image 2">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Mouse Bookmark</h3>
+      <p>Sweet little mouse bookmark for your books.</p>
+      <div class="price">4 JOD</div>
+    </div>
+
+    <div class="card" data-category="accessory" data-color="brown">
+     <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; font-weight:500;">♡ Handmade with Love</div>
+      <div class="product-images">
+        <img src="assets/phone.png" alt="Phone Pouch - Image 1" class="active">
+        <img src="assets/phone2.png" alt="Phone Pouch - Image 2">
+        <button class="prev">‹</button>
+        <button class="next">›</button>
+      </div>
+      <h3>Mini Crochet Pouch</h3>
+      <p>Perfect small accessory, fully handmade with love.</p>
+      <div class="price">5 JOD</div>
+    </div>
+
+  </section>
+
+  <section style="max-width:900px; margin:100px auto 60px; padding:0 20px; text-align:center;">
+    <h2 style="font-family:'Playfair Display', serif; font-size:2.6rem; margin-bottom:25px; background: linear-gradient(135deg, #8b6f5c, #6d5445); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">About the Brand ✿</h2>
+    <p style="max-width:700px; margin:auto; line-height:1.9; opacity:0.85; font-size:1.05rem; color:#6a5a5a;">
+      Every piece is carefully handmade with love and attention to detail. This crochet studio is about slow creation,
+      soft colors, and timeless designs made to bring warmth into everyday life.
+    </p>
+  </section>
+
+  <!-- Contact Section -->
+  <section style="max-width:600px; margin:60px auto 80px; padding:40px 20px; text-align:center; background: linear-gradient(135deg, #fef9f6 0%, #f9ede6 100%); border-radius:40px; box-shadow: 0 10px 40px rgba(139, 111, 92, 0.15);">
+    <h2 style="font-family:'Playfair Display', serif; font-size:2.2rem; margin-bottom:15px; background: linear-gradient(135deg, #8b6f5c, #6d5445); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Get in Touch ♡</h2>
+    <p style="margin-bottom:25px; color:#6d5445; font-size:1.05rem; line-height:1.7;">
+      Have questions or want to place a custom order?<br>
+      Feel free to reach out on Instagram!
+    </p>
+    <a href="https://www.instagram.com/suff.j0/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:12px; padding:14px 32px; background: linear-gradient(135deg, #d4b8a8, #8b6f5c); color:white; text-decoration:none; border-radius:50px; font-weight:500; font-size:1.05rem; box-shadow: 0 8px 25px rgba(139, 111, 92, 0.3); transition: all 0.3s ease; font-family: 'Poppins', sans-serif;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C14.717 2 15.056 2.01 16.122 2.06C17.187 2.11 17.912 2.277 18.55 2.525C19.21 2.779 19.766 3.123 20.322 3.678C20.8305 4.1779 21.224 4.78259 21.475 5.45C21.722 6.087 21.89 6.813 21.94 7.878C21.987 8.944 22 9.283 22 12C22 14.717 21.99 15.056 21.94 16.122C21.89 17.187 21.722 17.912 21.475 18.55C21.2247 19.2178 20.8311 19.8226 20.322 20.322C19.822 20.8303 19.2173 21.2238 18.55 21.475C17.913 21.722 17.187 21.89 16.122 21.94C15.056 21.987 14.717 22 12 22C9.283 22 8.944 21.99 7.878 21.94C6.813 21.89 6.088 21.722 5.45 21.475C4.78233 21.2245 4.17753 20.8309 3.678 20.322C3.16941 19.8222 2.77593 19.2175 2.525 18.55C2.277 17.913 2.11 17.187 2.06 16.122C2.013 15.056 2 14.717 2 12C2 9.283 2.01 8.944 2.06 7.878C2.11 6.812 2.277 6.088 2.525 5.45C2.77524 4.78218 3.1688 4.17732 3.678 3.678C4.17767 3.16923 4.78243 2.77573 5.45 2.525C6.088 2.277 6.812 2.11 7.878 2.06C8.944 2.013 9.283 2 12 2ZM12 7C10.6739 7 9.40215 7.52678 8.46447 8.46447C7.52678 9.40215 7 10.6739 7 12C7 13.3261 7.52678 14.5979 8.46447 15.5355C9.40215 16.4732 10.6739 17 12 17C13.3261 17 14.5979 16.4732 15.5355 15.5355C16.4732 14.5979 17 13.3261 17 12C17 10.6739 16.4732 9.40215 15.5355 8.46447C14.5979 7.52678 13.3261 7 12 7ZM18.5 6.75C18.5 6.41848 18.3683 6.10054 18.1339 5.86612C17.8995 5.6317 17.5815 5.5 17.25 5.5C16.9185 5.5 16.6005 5.6317 16.3661 5.86612C16.1317 6.10054 16 6.41848 16 6.75C16 7.08152 16.1317 7.39946 16.3661 7.63388C16.6005 7.8683 16.9185 8 17.25 8C17.5815 8 17.8995 7.8683 18.1339 7.63388C18.3683 7.39946 18.5 7.08152 18.5 6.75ZM12 9C12.7956 9 13.5587 9.31607 14.1213 9.87868C14.6839 10.4413 15 11.2044 15 12C15 12.7956 14.6839 13.5587 14.1213 14.1213C13.5587 14.6839 12.7956 15 12 15C11.2044 15 10.4413 14.6839 9.87868 14.1213C9.31607 13.5587 9 12.7956 9 12C9 11.2044 9.31607 10.4413 9.87868 9.87868C10.4413 9.31607 11.2044 9 12 9Z" fill="white"/>
+      </svg>
+      @suff.j0
+    </a>
+  </section>
+
+  <footer>
+    © 2026 Crochet Studio · Handmade with love ♡✿
+  </footer>
+
+  <script>
+    const categoryFilter = document.getElementById('categoryFilter');
+    const cards = document.querySelectorAll('.card');
+
+    categoryFilter.addEventListener('change', filterProducts);
+
+    function filterProducts() {
+      const category = categoryFilter.value;
+
+      cards.forEach(card => {
+        const matchCategory = category === 'all' || card.dataset.category === category;
+        card.style.display = matchCategory ? 'block' : 'none';
+      });
+    }
+
+    // Product Image Carousel
+    document.querySelectorAll('.card').forEach(card => {
+      const imgs = card.querySelectorAll('.product-images img');
+      const prevBtn = card.querySelector('.product-images .prev');
+      const nextBtn = card.querySelector('.product-images .next');
+      let index = 0;
+
+      const show = (i) => {
+        imgs.forEach((img, idx) => img.classList.toggle('active', idx === i));
+      };
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          index = (index + 1) % imgs.length;
+          show(index);
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          index = (index - 1 + imgs.length) % imgs.length;
+          show(index);
+        });
+      }
+
+      show(index);
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+
+    themeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark', themeToggle.checked);
+    });
+  </script>
+</body>
+</html>
